@@ -46,3 +46,13 @@ input,select{min-height:48px;font-size:16px}
  .amenities{grid-template-columns:1fr}.plan-price{font-size:38px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+
+/* Cada frase é mantida inteira, inclusive em telas estreitas. */
+.ticker .ticker-phrase{font-size:inherit;white-space:nowrap}
+.ticker .ticker-separator{flex-shrink:0}
+@media(max-width:1000px){
+ .ticker .ticker-inner{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:calc(100% - 28px);max-width:700px;margin-inline:auto;gap:14px 8px;padding:20px 0;white-space:normal;text-align:center;line-height:1.5;font-size:clamp(9px,2.5vw,12px);letter-spacing:1px}
+ .ticker .ticker-separator{display:none}
+ .ticker .ticker-phrase{min-width:0;white-space:normal;overflow-wrap:normal}
+ .ticker .ticker-phrase:last-child{grid-column:1 / -1}
+}
