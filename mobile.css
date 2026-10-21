@@ -47,12 +47,11 @@ input,select{min-height:48px;font-size:16px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
 
-/* Cada frase é mantida inteira, inclusive em telas estreitas. */
-.ticker .ticker-phrase{font-size:inherit;white-space:nowrap}
+/* Faixa igual à versão desktop, inteira em uma única linha. */
+.ticker .ticker-phrase{font-size:inherit;white-space:nowrap;flex-shrink:0}
 .ticker .ticker-separator{flex-shrink:0}
-@media(max-width:1000px){
- .ticker .ticker-inner{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:calc(100% - 28px);max-width:700px;margin-inline:auto;gap:14px 8px;padding:20px 0;white-space:normal;text-align:center;line-height:1.5;font-size:clamp(9px,2.5vw,12px);letter-spacing:1px}
- .ticker .ticker-separator{display:none}
- .ticker .ticker-phrase{min-width:0;white-space:normal;overflow-wrap:normal}
- .ticker .ticker-phrase:last-child{grid-column:1 / -1}
+@media(max-width:1300px){
+ .ticker .ticker-inner{display:flex;flex-wrap:nowrap;align-items:center;justify-content:space-between;width:calc(100% - 24px);max-width:1260px;margin-inline:auto;gap:clamp(3px,1vw,14px);padding:18px 0;white-space:nowrap;line-height:1.5;font-size:clamp(3px,.95vw,10px);letter-spacing:clamp(.1px,.08vw,1px)}
+ .ticker .ticker-separator{display:inline;font-size:clamp(4px,1.1vw,14px)}
+ .ticker .ticker-phrase{white-space:nowrap;overflow-wrap:normal}
 }
