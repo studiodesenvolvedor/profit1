@@ -1,0 +1,42 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "profitup": {
+      "admins": {
+        ".write": false,
+        "$uid": {
+          ".read": "auth != null && auth.uid === $uid"
+        }
+      },
+      "preinscricoes": {
+        ".read": "auth != null && root.child('profitup/admins').child(auth.uid).val() === true",
+        ".indexOn": [
+          "createdAt"
+        ],
+        "$id": {
+          ".write": "!data.exists() && newData.exists() && $id.matches(/^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[89abAB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}$/)",
+          ".validate": "newData.hasChildren(['fullName', 'phone', 'email', 'plan', 'createdAt'])",
+          "fullName": {
+            ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 120 && newData.val().matches(/^.+ .+$/)"
+          },
+          "phone": {
+            ".validate": "newData.isString() && newData.val().matches(/^(55)?[1-9][0-9]{9,10}$/)"
+          },
+          "email": {
+            ".validate": "newData.isString() && newData.val().length <= 254 && newData.val().matches(/^[^\\s@]+@[^\\s@]+[.][^\\s@]+$/)"
+          },
+          "plan": {
+            ".validate": "newData.isString() && (newData.val() === 'Mensal' || newData.val() === 'Semestral' || newData.val() === 'Anual' || newData.val() === 'Clube Profit' || newData.val() === 'Clube Profit Best Time')"
+          },
+          "createdAt": {
+            ".validate": "newData.isNumber() && newData.val() === now"
+          },
+          "$other": {
+            ".validate": false
+          }
+        }
+      }
+    }
+  }
+}
